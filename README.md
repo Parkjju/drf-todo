@@ -10,3 +10,4 @@ FE - [How To Build a To-Do application Using Django and React](https://www.digit
 - [x] DB 초기 마이그레이션
 - [x] django 프로젝트 ignore목록 추가
 - [x] 어드민 계정 (admin // 1234)
+- [x] API 명세 추가 ([링크](https://documenter.getpostman.com/view/20380690/Uyr7He9v))
