@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function Item({ list, viewCompleted }) {
     console.log(list);
     return list.map((item) =>
