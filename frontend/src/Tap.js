@@ -1,5 +1,4 @@
 function Tap({ viewCompleted, handleViewCompleted }) {
-    console.log(viewCompleted);
     return (
         <div className='nav nav-tabs'>
             <span

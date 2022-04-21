@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Tap from './Tap';
 import Item from './Item';
+import CustomModal from './components/Modal';
 import axios from 'axios';
 
 const todoItems = [
@@ -40,6 +41,33 @@ const todoItems = [
 function App() {
     const [viewCompleted, setViewCompleted] = useState(false);
     const [todoList, setTodoList] = useState(todoItems);
+    const [activeTodo, setActiveTodo] = useState({
+        title: '',
+        description: '',
+        completed: false,
+    });
+    const [modal, setModal] = useState(false);
+
+    const handleSubmit = (activeTodo) => {
+        console.log(activeTodo);
+        setModal((modal) => !modal);
+    };
+
+    const handleCreate = () => {
+        const newItem = {
+            title: '',
+            description: '',
+            completed: false,
+        };
+        setActiveTodo(newItem);
+        setModal((modal) => !modal);
+    };
+    const handleDelete = (item) => {
+        console.log(item);
+    };
+    const handleEdit = (item) => {
+        console.log(item);
+    };
 
     return (
         <main className='container'>
@@ -50,7 +78,10 @@ function App() {
                 <div className='col-md-6 col-sm-10 mx-auto p-0'>
                     <div className='card p-3'>
                         <div className='mb-4'>
-                            <button className='btn btn-primary'>
+                            <button
+                                onClick={handleCreate}
+                                className='btn btn-primary'
+                            >
                                 Add task
                             </button>
                         </div>
@@ -62,11 +93,23 @@ function App() {
                             <Item
                                 list={todoList}
                                 viewCompleted={viewCompleted}
+                                openModal={setModal}
+                                setActiveItem={setActiveTodo}
+                                handleDelete={handleDelete}
+                                handleEdit={handleEdit}
                             />
                         </ul>
                     </div>
                 </div>
             </div>
+            {modal ? (
+                <CustomModal
+                    activeItem={activeTodo}
+                    setActiveItem={setActiveTodo}
+                    isModalOpened={[modal, setModal]}
+                    onSave={handleSubmit}
+                />
+            ) : null}
         </main>
     );
 }

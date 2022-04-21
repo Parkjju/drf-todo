@@ -1,5 +1,11 @@
-function Item({ list, viewCompleted }) {
-    console.log(list);
+function Item({
+    list,
+    viewCompleted,
+    openModal,
+    setActiveItem,
+    handleDelete,
+    handleEdit,
+}) {
     return list.map((item) =>
         item.completed === viewCompleted ? (
             <li
@@ -15,8 +21,25 @@ function Item({ list, viewCompleted }) {
                     {item.title}
                 </span>
                 <span>
-                    <button className='btn btn-secondary mr-2'>Edit</button>
-                    <button className='btn btn-danger'>Delete</button>
+                    <button
+                        onClick={() => {
+                            openModal(true);
+                            setActiveItem(item);
+                            handleEdit(item);
+                        }}
+                        className='btn btn-secondary mr-2'
+                    >
+                        Edit
+                    </button>
+                    <button
+                        // onClick={() => openModal(true)}
+                        onClick={() => {
+                            handleDelete(item);
+                        }}
+                        className='btn btn-danger'
+                    >
+                        Delete
+                    </button>
                 </span>
             </li>
         ) : null
