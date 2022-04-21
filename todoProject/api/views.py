@@ -47,7 +47,7 @@ def todoDetail(request, pk):
 '''
 id를 사용하여 단일 todo를 갱신하는 함수 - POST는 URL로 처리가 안되므로 DRF가 제공하는 템플릿 사용
 '''
-@api_view(['POST'])
+@api_view(['PUT'])
 def todoUpdate(request, pk):
   todo = Todo.objects.get(id=pk)
   serializer = TodoSerializer(instance=todo, data=request.data)
