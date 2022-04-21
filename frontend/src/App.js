@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Tap from './Tap';
+import Item from './Item';
 import axios from 'axios';
 
 const todoItems = [
@@ -38,7 +39,7 @@ const todoItems = [
 
 function App() {
     const [viewCompleted, setViewCompleted] = useState(false);
-    const [todoList, setTodoList] = useState({});
+    const [todoList, setTodoList] = useState(todoItems);
 
     return (
         <main className='container'>
@@ -57,7 +58,12 @@ function App() {
                             viewCompleted={viewCompleted}
                             handleViewCompleted={setViewCompleted}
                         />
-                        <ul className='list-group list-group-flush border-top-0'></ul>
+                        <ul className='list-group list-group-flush border-top-0'>
+                            <Item
+                                list={todoList}
+                                viewCompleted={viewCompleted}
+                            />
+                        </ul>
                     </div>
                 </div>
             </div>
