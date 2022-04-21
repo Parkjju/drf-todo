@@ -40,7 +40,7 @@ const todoItems = [
 
 function App() {
     const [viewCompleted, setViewCompleted] = useState(false);
-    const [todoList, setTodoList] = useState(todoItems);
+    const [todoList, setTodoList] = useState([]);
     const [activeTodo, setActiveTodo] = useState({
         title: '',
         description: '',
@@ -48,8 +48,35 @@ function App() {
     });
     const [modal, setModal] = useState(false);
 
+    // API 요청 처리 후 투두리스트 전체 목록 데이터베이스로부터 불러오는 함수
+    const refreshList = () => {
+        axios.get(`/todo-list/`).then((response) => {
+            setTodoList(response.data);
+        });
+    };
+
+    // App렌더링 후 초기 리스트 불러오는 함수
+    useEffect(() => {
+        axios.get(`/todo-list/`).then((response) => {
+            setTodoList(response.data);
+        });
+    }, []);
+
     const handleSubmit = (activeTodo) => {
-        console.log(activeTodo);
+        if (activeTodo.id) {
+            axios
+                .put(`/todo-update/${activeTodo.id}/`, activeTodo)
+                .then((response) => {
+                    refreshList();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            return;
+        }
+        axios.post(`/todo-create/`, activeTodo).then((response) => {
+            refreshList();
+        });
         setModal((modal) => !modal);
     };
 
@@ -63,10 +90,9 @@ function App() {
         setModal((modal) => !modal);
     };
     const handleDelete = (item) => {
-        console.log(item);
-    };
-    const handleEdit = (item) => {
-        console.log(item);
+        axios.delete(`/todo-delete/${item.id}`).then((response) => {
+            refreshList();
+        });
     };
 
     return (
@@ -96,7 +122,6 @@ function App() {
                                 openModal={setModal}
                                 setActiveItem={setActiveTodo}
                                 handleDelete={handleDelete}
-                                handleEdit={handleEdit}
                             />
                         </ul>
                     </div>

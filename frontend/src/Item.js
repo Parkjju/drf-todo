@@ -1,11 +1,4 @@
-function Item({
-    list,
-    viewCompleted,
-    openModal,
-    setActiveItem,
-    handleDelete,
-    handleEdit,
-}) {
+function Item({ list, viewCompleted, openModal, setActiveItem, handleDelete }) {
     return list.map((item) =>
         item.completed === viewCompleted ? (
             <li
@@ -25,7 +18,6 @@ function Item({
                         onClick={() => {
                             openModal(true);
                             setActiveItem(item);
-                            handleEdit(item);
                         }}
                         className='btn btn-secondary mr-2'
                     >
