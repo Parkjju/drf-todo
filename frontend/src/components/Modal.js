@@ -12,20 +12,6 @@ import {
 } from 'reactstrap';
 
 function CustomModal({ activeItem, onSave, toggle }) {
-    const [currentItem, setCurrentItem] = useState(activeItem);
-
-    const handleChange = (event) => {
-        let { name, value } = event.target;
-        if (event.target.type === 'checkbox') {
-            value = event.target.checked;
-        }
-
-        setCurrentItem({
-            ...currentItem,
-            [name]: value,
-        });
-    };
-
     return (
         <Modal isOpen={true} toggle={toggle}>
             <ModalHeader toggle={toggle}>Todo Item</ModalHeader>
