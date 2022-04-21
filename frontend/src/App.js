@@ -4,6 +4,7 @@ import Tap from './Tap';
 import Item from './Item';
 import CustomModal from './components/Modal';
 import axios from 'axios';
+import { NavbarToggler } from 'reactstrap';
 
 const todoItems = [
     {
@@ -72,6 +73,7 @@ function App() {
                 .catch((err) => {
                     console.log(err);
                 });
+            setModal((modal) => !modal);
             return;
         }
         axios.post(`/todo-create/`, activeTodo).then((response) => {
